@@ -1,0 +1,47 @@
+<form [formGroup]="personForm">
+    <div>
+        <mat-form-field appearance="outline">
+            <mat-label>First name</mat-label>
+            <input matInput placeholder="First name" formControlName="firstName">
+            <mat-error *ngIf="personForm.controls.firstName.invalid">שדה לא תקין</mat-error>
+        </mat-form-field>
+    </div>
+
+    <div>
+        <mat-form-field appearance="outline">
+            <mat-label>Last name</mat-label>
+            <input matInput placeholder="Last name" formControlName="lastName">
+            <mat-error *ngIf="personForm.controls.lastName.invalid">שדה לא תקין</mat-error>
+        </mat-form-field>
+    </div>
+
+    <div>
+        <div style="border: 4px solid blue">
+            Age :
+            <app-number-up-down formControlName="age"></app-number-up-down>
+        </div>
+        <!-- <mat-form-field appearance="outline">
+            <mat-label>Age</mat-label>
+            <input matInput placeholder="Age" type="number" >
+            <mat-error *ngIf="personForm.controls.age.invalid">שדה לא תקין</mat-error>
+        </mat-form-field> -->
+    </div>
+    <div style="border: 4px solid lime">
+        <h3>Address : </h3>
+        <app-address-input formControlName="address"></app-address-input>
+    </div>
+    <div style="border: 4px solid pink">
+        <h3>Hobbies:</h3>
+        <app-hobbies-input formControlName="hobbies"></app-hobbies-input>
+    </div>
+    <div>
+        <button color="primary" mat-raised-button [disabled]="personForm.invalid">Save</button>
+    </div>
+
+
+</form>
+
+
+<div>
+    <pre>{{personForm.value | json}}</pre>
+</div>

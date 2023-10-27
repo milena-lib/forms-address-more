@@ -1,0 +1,30 @@
+<div class="loading" *ngIf="isBusy$ | async">
+    <mat-spinner [diameter]="28"></mat-spinner>
+</div>
+<div class="wrapper">
+    <!-- <div *ngIf="productFreeShippingOnly$ | async as products">
+        <app-product-list [products]="products"></app-product-list>
+    </div> -->
+    <div>
+        <div>
+            FILTER
+        </div>
+        <mat-checkbox [formControl]="freeshippingControl">Only free shipping</mat-checkbox>
+
+    </div>
+    <div>
+        <ng-container *ngIf="products$ | async as products">
+            <div>
+                <app-product-list [products]="products"></app-product-list>
+            </div>
+            <div>
+                <div *ngIf="selectedProduct$ | async as selectedProduct">
+                    <app-edit-product [product]="selectedProduct"></app-edit-product>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+    <ng-template #emptyTemplate>
+        אין בכלל כלום יאאללה באסה
+    </ng-template>
+</div>

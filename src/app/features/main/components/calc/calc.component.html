@@ -1,0 +1,7 @@
+<div>
+    <input type="number" [formControl]="xControl" />
+    <input type="number" [formControl]="yControl" />
+    <div>
+        {{sum$ | async | json}}
+    </div>
+</div>

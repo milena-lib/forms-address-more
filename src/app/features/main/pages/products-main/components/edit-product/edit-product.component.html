@@ -1,0 +1,43 @@
+<mat-card>
+    <div [formGroup]="productForm">
+        <div>
+            <mat-form-field appearance="outline">
+                <mat-label>Product Name</mat-label>
+                <input matInput placeholder="Product Name" formControlName="name" [disabled]="true">
+                <mat-error *ngIf="productForm.controls.name.invalid">שדה לא תקין</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Description</mat-label>
+                <input matInput placeholder="Description" formControlName="description">
+                <mat-error *ngIf="productForm.controls.description.invalid">שדה לא תקין</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div>
+            <mat-form-field appearance="outline">
+                <mat-label>Price</mat-label>
+                <input matInput placeholder="Price" type="number" formControlName="price">
+                <mat-error *ngIf="productForm.controls.price">שדה לא תקין</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div> <mat-checkbox formControlName="isFreeShipping">Is free shipping</mat-checkbox></div>
+
+        <div>
+            <button color="primary" mat-raised-button [disabled]="productForm.invalid"
+                (click)="saveProduct()">Save</button>
+        </div>
+
+        <!-- <ul>
+        <li> disabled: {{productForm.disabled}}</li>
+        <li> valid: {{productForm.valid}}</li>
+        <li> currentValue: {{productForm.value | json}}</li>
+        <li> dirty: {{productForm.dirty}}</li>
+
+    </ul> -->
+    </div>
+</mat-card>

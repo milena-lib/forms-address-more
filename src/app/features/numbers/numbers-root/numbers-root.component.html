@@ -1,0 +1,13 @@
+<div *ngIf="state$ | async as data">
+    <div>
+        <button (click)="plus()">+</button>
+        <span [class.min]="data.isLessThanMin" [class.max]="data.isBiggerThanMax">
+            {{data.currentValue}}
+        </span>
+        <button (click)="minus()">-</button>
+    </div>
+
+    <div>
+        <app-numbers-form [data]="data"></app-numbers-form>
+    </div>
+</div>

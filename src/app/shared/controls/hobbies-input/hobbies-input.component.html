@@ -1,0 +1,16 @@
+<div [formGroup]="mainGroup">
+    <button (click)="add()">Add</button>
+    <div *ngFor="let item of mainGroup.controls.hobbiesFormArray.controls" [formGroup]="item">
+        <div>
+            Name : <input formControlName="name">
+        </div>
+        <div>
+            Skill : <input formControlName="skill">
+        </div>
+        <hr>
+    </div>
+</div>
+
+<div>
+    <pre>{{mainGroup.value | json}}</pre>
+</div>
