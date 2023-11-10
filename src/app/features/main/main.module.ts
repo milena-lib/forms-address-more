@@ -20,6 +20,7 @@ import { EditPersonPageComponent } from './pages/edit-person-page/edit-person-pa
 import { NumberUpDownComponent } from 'src/app/shared/controls/number-up-down/number-up-down.component';
 import { AddressInputComponent } from 'src/app/shared/controls/address-input/address-input.component';
 import { HobbiesInputComponent } from 'src/app/shared/controls/hobbies-input/hobbies-input.component';
+import { WorksCheckboxesComponent } from 'src/app/shared/controls/works-checkboxes/works-checkboxes.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { HobbiesInputComponent } from 'src/app/shared/controls/hobbies-input/hob
     MatTableModule,
     NumberUpDownComponent,
     AddressInputComponent,
-    HobbiesInputComponent
+    HobbiesInputComponent,
+    WorksCheckboxesComponent
 
   ]
 })

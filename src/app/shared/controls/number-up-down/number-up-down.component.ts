@@ -25,10 +25,12 @@ export class NumberUpDownComponent implements OnInit, ControlValueAccessor {
 
   writeValue(obj: any): void {
     this.value = obj;
+    console.log("writeValue: ", this.value);
   }
 
   registerOnChange(fn: any): void {
-    this.changeCallback = fn
+    this.changeCallback = fn;
+    console.log("registerOnChange: ", this.changeCallback);
   }
 
   registerOnTouched(fn: any): void {
@@ -37,6 +39,7 @@ export class NumberUpDownComponent implements OnInit, ControlValueAccessor {
 
   setDisabledState?(isDisabled: boolean): void {
     this.disabled = isDisabled;
+    console.log("setDisabledState: ", this.disabled);
   }
 
   ngOnInit(): void {

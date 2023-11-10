@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AbstractControl, ControlValueAccessor, FormBuilder, FormsModule, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule, ValidationErrors, Validator, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { Address } from 'src/app/features/main/model/person.model';
+import { Address, Works } from 'src/app/features/main/model/person.model';
 
 @Component({
   selector: 'app-address-input',
@@ -26,12 +26,15 @@ import { Address } from 'src/app/features/main/model/person.model';
   ]
 })
 export class AddressInputComponent implements OnInit, ControlValueAccessor, Validator {
+  works: Works[] = [{ text: '', value: ''}];
 
   addressForm = this.fb.group({
     street: this.fb.control<string>('', [Validators.minLength(10)]),
     city: this.fb.control<string>(''),
-    country: this.fb.control<string>('')
+    country: this.fb.control<string>(''),
+    // works: this.fb.control<string>('')
   });
+
   changeCallBack: any;
 
   constructor(
@@ -41,8 +44,10 @@ export class AddressInputComponent implements OnInit, ControlValueAccessor, Vali
   validate(control: AbstractControl<any, any>): ValidationErrors | null {
     console.log('VALIDATE');
     if (this.addressForm.valid) {
+      console.log('ADDRESS VALID');
       return null;
     }
+    console.log('ADDRESS NOT VALID');
     return { 'addressNotValid': true };
   }
 

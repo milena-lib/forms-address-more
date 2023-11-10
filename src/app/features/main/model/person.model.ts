@@ -16,5 +16,9 @@ export interface Address {
     street: string;
     city: string;
     country: string;
+}
 
+export interface Works {
+    text: string;
+    value: string;
 }

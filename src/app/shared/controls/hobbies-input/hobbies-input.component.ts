@@ -39,6 +39,9 @@ export class HobbiesInputComponent implements OnInit, ControlValueAccessor {
       }));
     }
     this.mainGroup.controls.hobbiesFormArray.setValue(obj);
+
+    console.log("obj: ", obj);
+    console.log("mainGroup.controls.hobbiesFormArray: ", this.mainGroup.controls.hobbiesFormArray.value);
   }
 
   registerOnChange(fn: any): void {
@@ -53,7 +56,7 @@ export class HobbiesInputComponent implements OnInit, ControlValueAccessor {
   }
 
   add() {
-    this.mainGroup.controls.hobbiesFormArray.controls.push(this.fb.group({
+    this.mainGroup.controls.hobbiesFormArray.push(this.fb.group({
       name: this.fb.control<string>(''),
       skill: this.fb.control<number>(1)
     }));
@@ -63,7 +66,7 @@ export class HobbiesInputComponent implements OnInit, ControlValueAccessor {
   }
   ngOnInit(): void {
     this.mainGroup.controls.hobbiesFormArray.valueChanges.subscribe(hobbiesValue => {
-      console.log('CHNAGED', hobbiesValue);
+      console.log('CHANGED', hobbiesValue);
       if (this.callBack) {
         this.callBack(hobbiesValue);
       }

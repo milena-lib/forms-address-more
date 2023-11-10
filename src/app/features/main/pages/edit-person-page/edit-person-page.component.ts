@@ -29,6 +29,8 @@ export class EditPersonPageComponent implements OnInit {
     this.personForm.patchValue(this.personToEdit);
     this.personForm.controls.age.disable();
 
+    debugger;
+
     setTimeout(() => {
       this.personForm.controls.age.enable();
     }, 5000);
