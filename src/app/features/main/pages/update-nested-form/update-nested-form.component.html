@@ -1,0 +1,37 @@
+<form [formGroup]="productsForm">
+    <div style="border: 2px solid black">
+        <div>
+            <h1 style="margin-top: 40px">Main Form</h1>
+        
+            <app-main-form formControlName="mainProducts" [parentCtrlName]="'mainProducts'"></app-main-form>
+
+            <button style="margin: 20px 0" (click)="showDistribForm()">Show distribution form</button>
+        </div>
+    </div>
+    
+    <ng-container *ngIf="isShowDistribForm">
+        <div style="border: 2px solid black;">            
+            <div style="padding: 20px">
+                <h1 style="margin-top: 40px">Distribution Form 1</h1>            
+                <app-distrib-form formControlName="distribProducts0" [isDistribution]="true" [parentCtrlName]="'distribProducts0'"></app-distrib-form>
+                
+                <h1 style="margin-top: 40px">Distribution Form 2</h1>
+                <app-distrib-form formControlName="distribProducts1" [isDistribution]="true" [parentCtrlName]="'distribProducts1'"></app-distrib-form>
+                
+                <h1 style="margin-top: 40px">Distribution Form 3</h1>
+                <app-distrib-form formControlName="distribProducts2" [isDistribution]="true" [parentCtrlName]="'distribProducts2'"></app-distrib-form>
+            </div>
+        </div>
+    </ng-container>
+</form>
+
+
+<div style="direction: ltr;">
+    <h2>formState: </h2>
+    <pre *ngIf="formState$ | async as formState">{{formState | json}}</pre>
+</div>
+
+<div style="direction: ltr;">
+    <h2>productsForm: </h2>
+    <pre>{{productsForm.value | json}}</pre>
+</div>

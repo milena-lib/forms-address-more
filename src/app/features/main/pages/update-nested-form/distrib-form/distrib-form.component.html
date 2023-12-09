@@ -1,0 +1,14 @@
+
+<div [formGroup]="distribForm">
+    <h2>Sims</h2>
+    <app-entity formControlName="sims" [isDistribution]="true" [parentCtrlName]="parentCtrlName" [entityType]="'sims'"></app-entity>
+    <h2>Devices</h2>
+    <app-entity formControlName="devices" [isDistribution]="true" [parentCtrlName]="parentCtrlName" [entityType]="'devices'"></app-entity>
+    <h2>Accessories</h2>
+    <app-entity formControlName="accessories" [isDistribution]="true" [parentCtrlName]="parentCtrlName" [entityType]="'accessories'"></app-entity>
+</div>
+<!-- 
+<div style="direction: ltr;">
+    <h2>distribForm: </h2>
+    <pre>{{distribForm.value | json}}</pre>
+</div> -->

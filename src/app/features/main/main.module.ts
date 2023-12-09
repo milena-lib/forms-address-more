@@ -21,6 +21,10 @@ import { NumberUpDownComponent } from 'src/app/shared/controls/number-up-down/nu
 import { AddressInputComponent } from 'src/app/shared/controls/address-input/address-input.component';
 import { HobbiesInputComponent } from 'src/app/shared/controls/hobbies-input/hobbies-input.component';
 import { WorksCheckboxesComponent } from 'src/app/shared/controls/works-checkboxes/works-checkboxes.component';
+import { UpdateNestedFormComponent } from './pages/update-nested-form/update-nested-form.component';
+import { MainFormComponent } from './pages/update-nested-form/main-form/main-form.component';
+import { DistribFormComponent } from './pages/update-nested-form/distrib-form/distrib-form.component';
+import { EntityComponent } from './pages/update-nested-form/distrib-form/entity/entity.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +34,11 @@ import { WorksCheckboxesComponent } from 'src/app/shared/controls/works-checkbox
     ProductsMainComponent,
     EditProductComponent,
     ProductListComponent,
-    EditPersonPageComponent
+    EditPersonPageComponent,
+    UpdateNestedFormComponent,
+    MainFormComponent,
+    DistribFormComponent,
+    EntityComponent
   ],
   imports: [
     CommonModule,

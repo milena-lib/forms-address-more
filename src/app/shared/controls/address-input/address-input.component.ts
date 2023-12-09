@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AbstractControl, ControlValueAccessor, FormBuilder, FormsModule, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule, ValidationErrors, Validator, Validators } from '@angular/forms';
+import { AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormsModule, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule, ValidationErrors, Validator, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Address, Works } from 'src/app/features/main/model/person.model';
@@ -26,13 +26,11 @@ import { Address, Works } from 'src/app/features/main/model/person.model';
   ]
 })
 export class AddressInputComponent implements OnInit, ControlValueAccessor, Validator {
-  works: Works[] = [{ text: '', value: ''}];
-
+  
   addressForm = this.fb.group({
-    street: this.fb.control<string>('', [Validators.minLength(10)]),
-    city: this.fb.control<string>(''),
-    country: this.fb.control<string>(''),
-    // works: this.fb.control<string>('')
+    street: new FormControl('', [Validators.minLength(10)]),
+    city: new FormControl('', [Validators.required]),
+    country: new FormControl<string>('')
   });
 
   changeCallBack: any;
@@ -42,7 +40,7 @@ export class AddressInputComponent implements OnInit, ControlValueAccessor, Vali
   ) { }
 
   validate(control: AbstractControl<any, any>): ValidationErrors | null {
-    console.log('VALIDATE');
+    console.log('VALIDATE', this.addressForm.valid);
     if (this.addressForm.valid) {
       console.log('ADDRESS VALID');
       return null;

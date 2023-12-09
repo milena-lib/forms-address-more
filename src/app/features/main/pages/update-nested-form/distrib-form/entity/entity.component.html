@@ -1,0 +1,34 @@
+<div [formGroup]="entityGroup">
+    <div style="color: blue">parentCtrlName: {{parentCtrlName}}</div>
+    <div *ngFor="let item of entityGroup.controls.entityFormArray.controls; let i=index" [formGroup]="item">
+        <div>
+            <ng-container *ngIf="!isDistribution; else distribution">
+                Entity Amount : <input formControlName="amount">
+                
+            </ng-container>
+            <ng-template #distribution>
+                Entity Amount : 
+                <span *ngIf="entityType === 'sims' && simsMaxAmount?.length">
+                    {{simsMaxAmount[i]['amount']}} /                      
+                </span>
+                <span *ngIf="entityType === 'devices' && devicesMaxAmount?.length">
+                    {{devicesMaxAmount[i]['amount']}} /                     
+                </span>
+                <span *ngIf="entityType === 'accessories' && accessoriesMaxAmount?.length">
+                    {{accessoriesMaxAmount[i]['amount']}} /                     
+                </span>
+
+                New Amount : <input formControlName="amountNew" >
+                
+            </ng-template>
+        </div>
+        <hr>
+    </div>
+</div>
+
+
+<!-- 
+<div style="direction: ltr;">
+    <h2>entityGroup: </h2>
+    <pre>{{entityGroup.value | json}}</pre>
+</div> -->

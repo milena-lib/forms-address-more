@@ -11,7 +11,7 @@ export class EditPersonPageComponent implements OnInit {
 
   personToEdit: Person = {
     id: 1, lastName: 'Dahan', firstName: 'Tal', age: 13,
-    address: { street: 'HaAmal', city: 'Rosh Ha', country: 'Israel' },
+    address: { street: 'HaAmal', city: '', country: 'Israel' },
     hobbies: [{ name: 'C#', skill: 2 }, { name: 'COLBOL', skill: 9 }]
   };
   personForm = this.fb.group({
@@ -29,8 +29,7 @@ export class EditPersonPageComponent implements OnInit {
     this.personForm.patchValue(this.personToEdit);
     this.personForm.controls.age.disable();
 
-    debugger;
-
+    
     setTimeout(() => {
       this.personForm.controls.age.enable();
     }, 5000);

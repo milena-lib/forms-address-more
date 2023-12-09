@@ -1,0 +1,15 @@
+<div [formGroup]="mainGroup">
+    <h2 style="margin-top: 40px">Sims</h2>
+    <app-entity formControlName="sims" [parentCtrlName]="parentCtrlName" [entityType]="'sims'"></app-entity>
+
+    <h2 style="margin-top: 40px">Devices</h2>
+    <app-entity formControlName="devices" [parentCtrlName]="parentCtrlName" [entityType]="'devices'"></app-entity>
+
+    <h2 style="margin-top: 40px">Accessories</h2>
+    <app-entity formControlName="accessories" [parentCtrlName]="parentCtrlName" [entityType]="'accessories'"></app-entity>
+</div>
+
+<!-- <div style="direction: ltr;">
+    <h2>mainGroup: </h2>
+    <pre>{{mainGroup.value | json}}</pre>
+</div> -->
