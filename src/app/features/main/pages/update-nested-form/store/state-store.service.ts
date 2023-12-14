@@ -208,9 +208,9 @@ export class StateStoreService {
       }
     
     }else if (obj.parentCtrl === 'distribProducts0' || obj.parentCtrl === 'distribProducts1' || obj.parentCtrl === 'distribProducts2'){
-      // this.stateObj[objEntities[i]][obj.entityType][obj.rowIndex].amountNew
       let selectedAmounts: number = 0;
       let prevCurrAmountNew: number = 0;
+      
       for(let i=0; i<objEntities?.length; i++) {
         if(objEntities[i] !== obj.parentCtrl) {
           selectedAmounts += (+this.stateObj[objEntities[i]][obj.entityType][obj.rowIndex].amountNew);
