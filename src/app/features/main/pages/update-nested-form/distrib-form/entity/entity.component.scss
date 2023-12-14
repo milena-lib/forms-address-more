@@ -1,0 +1,10 @@
+.two-inputs {
+    border: 1px solid gray;
+
+    .input-disabled {
+        width: 48px;
+        border: none;
+
+        &:focus { outline: none; }
+    }
+}

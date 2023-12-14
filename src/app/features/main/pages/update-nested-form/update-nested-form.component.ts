@@ -51,33 +51,25 @@ export class UpdateNestedFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.productsForm.patchValue(this.productsToEdit);
+    
+    this.stateStore.formState$.subscribe((event: any) => {
+      if(event) {
+        // debugger;
+        let keys = Object.keys(event);
 
-    // this.stateStore.formState$.subscribe((event: any) => {
-    //   if(event) {
-        // if(event.parentCtrl === 'mainProducts') {
-        //   this.simsMaxAmount = event.mainProducts.sims; 
-        //   this.devicesMaxAmount = event.mainProducts.devices;  
-        //   this.accessoriesMaxAmount = event.mainProducts.accessories;
+        for(let i=0; i<keys?.length; i++) {
+          // this.simsMaxAmount = event[keys[i]].sims;
+          // this.devicesMaxAmount = event[keys[i]].devices;  
+          // this.accessoriesMaxAmount = event[keys[i]].accessories;
 
-        //   this.productsToEdit.distribProducts0.sims = event.mainProducts.sims;
-        //   this.productsToEdit.distribProducts0.devices = event.mainProducts.devices;
-        //   this.productsToEdit.distribProducts0.accessories = event.mainProducts.accessories;
+          this.productsToEdit[keys[i]].sims = event[keys[i]].sims;
+          this.productsToEdit[keys[i]].devices = event[keys[i]].devices;
+          this.productsToEdit[keys[i]].accessories = event[keys[i]].accessories;
+        }
 
-        //   this.productsToEdit.distribProducts1.sims = event.mainProducts.sims;
-        //   this.productsToEdit.distribProducts1.devices = event.mainProducts.devices;
-        //   this.productsToEdit.distribProducts1.accessories = event.mainProducts.accessories;
-
-        //   this.productsToEdit.distribProducts2.sims = event.mainProducts.sims;
-        //   this.productsToEdit.distribProducts2.devices = event.mainProducts.devices;
-        //   this.productsToEdit.distribProducts2.accessories = event.mainProducts.accessories;
-
-        //   this.productsForm.patchValue(this.productsToEdit);
-        // }
-        
-
-        // console.log("productsForm: ", this.productsForm);
-      // }
-    // })
+        this.productsForm.patchValue(this.productsToEdit);
+      }
+    })
   }
 
   showDistribForm() {

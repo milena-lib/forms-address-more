@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { StateStoreService } from '../store/state-store.service';
 
 @Component({
   selector: 'app-distrib-form',
@@ -25,7 +26,7 @@ export class DistribFormComponent implements OnInit, ControlValueAccessor {
 
   callBack: any;
 
-  constructor(private readonly fb: FormBuilder) { }
+  constructor(private readonly fb: FormBuilder, private readonly stateStore: StateStoreService) { }
 
   writeValue(obj: any): void {
     this.distribForm.patchValue(obj);
@@ -44,6 +45,9 @@ export class DistribFormComponent implements OnInit, ControlValueAccessor {
       if (this.callBack) {
         this.callBack(entitiesValue);
       }
+
+      // const entityData = { parentCtrl: this.parentCtrlName, entityData: entitiesValue };
+      // this.stateStore.setStateForm(entityData);
     })
   }
 

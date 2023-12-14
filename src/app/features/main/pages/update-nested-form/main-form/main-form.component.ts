@@ -46,7 +46,7 @@ export class MainFormComponent implements OnInit, ControlValueAccessor {
       }
 
       const entityData = { parentCtrl: this.parentCtrlName, entityData: productsValue };
-      this.stateStore.setStateForm(entityData);
+      // this.stateStore.setStateForm(entityData);
     })
   }
 

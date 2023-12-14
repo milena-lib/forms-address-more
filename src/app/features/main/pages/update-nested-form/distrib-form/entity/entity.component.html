@@ -3,23 +3,14 @@
     <div *ngFor="let item of entityGroup.controls.entityFormArray.controls; let i=index" [formGroup]="item">
         <div>
             <ng-container *ngIf="!isDistribution; else distribution">
-                Entity Amount : <input formControlName="amount">
+                Entity Amount : <input formControlName="amount" (blur)="onBlurAmount(item, i)">
                 
             </ng-container>
             <ng-template #distribution>
                 Entity Amount : 
-                <span *ngIf="entityType === 'sims' && simsMaxAmount?.length">
-                    {{simsMaxAmount[i]['amount']}} /                      
-                </span>
-                <span *ngIf="entityType === 'devices' && devicesMaxAmount?.length">
-                    {{devicesMaxAmount[i]['amount']}} /                     
-                </span>
-                <span *ngIf="entityType === 'accessories' && accessoriesMaxAmount?.length">
-                    {{accessoriesMaxAmount[i]['amount']}} /                     
-                </span>
-
-                New Amount : <input formControlName="amountNew" >
-                
+                <div class="two-inputs">
+                    <input formControlName="amount" class="input-disabled" readonly> / <input formControlName="amountNew" (blur)="onBlurAmount(item, i)">
+                </div>
             </ng-template>
         </div>
         <hr>

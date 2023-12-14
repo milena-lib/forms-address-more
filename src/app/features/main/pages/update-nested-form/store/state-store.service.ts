@@ -5,7 +5,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class StateStoreService {
-  stateObj = {
+  stateObj:any = {
     mainProducts: {
       sims: [
         {
@@ -190,20 +190,73 @@ export class StateStoreService {
   constructor() { }
 
   setStateForm(obj: any) {
-    // console.log("setStateForm: ", obj);
+    console.log("obj: ", obj);
+
+    let keys = Object.keys(this.stateObj);
+    const objEntities = keys.filter(item => item !== 'mainProducts');
 
     if(obj.parentCtrl === 'mainProducts') {
-      this.stateObj.mainProducts = obj.entityData;
+      // debugger;
+      const prevMainAmount = this.stateObj.mainProducts[obj.entityType][obj.rowIndex].amount;      
+      const diffMainAmount = obj.entityData.amount - prevMainAmount;
 
-      this.stateObj.distribProducts0 = obj.entityData;
-      this.stateObj.distribProducts1 = obj.entityData;
-      this.stateObj.distribProducts2 = obj.entityData;
+      this.stateObj.mainProducts[obj.entityType][obj.rowIndex].amount = obj.entityData.amount;
+
+      for(let i=0; i<objEntities?.length; i++) {
+        this.stateObj[objEntities[i]][obj.entityType][obj.rowIndex].amount = this.stateObj[objEntities[i]][obj.entityType][obj.rowIndex].amount + diffMainAmount;
+        //TODO
+      }
+    
+    }else if (obj.parentCtrl === 'distribProducts0' || obj.parentCtrl === 'distribProducts1' || obj.parentCtrl === 'distribProducts2'){
+      // this.stateObj[objEntities[i]][obj.entityType][obj.rowIndex].amountNew
+      let selectedAmounts: number = 0;
+      let prevCurrAmountNew: number = 0;
+      for(let i=0; i<objEntities?.length; i++) {
+        if(objEntities[i] !== obj.parentCtrl) {
+          selectedAmounts += (+this.stateObj[objEntities[i]][obj.entityType][obj.rowIndex].amountNew);
+        }else{
+          prevCurrAmountNew = this.stateObj[objEntities[i]][obj.entityType][obj.rowIndex].amountNew;
+        }
+      }
+
+      selectedAmounts +=  + (+obj.entityData.amountNew);
+
+      for(let i=0; i<objEntities?.length; i++) {
+        
+        if(objEntities[i] === obj.parentCtrl) {
+          this.stateObj[objEntities[i]][obj.entityType][obj.rowIndex].amount = obj.entityData.amount;
+          this.stateObj[objEntities[i]][obj.entityType][obj.rowIndex].amountNew = obj.entityData.amountNew;
+        }else{
+          const maxAmount: number = this.stateObj.mainProducts[obj.entityType][obj.rowIndex].amount;
+
+          if((+this.stateObj[objEntities[i]][obj.entityType][obj.rowIndex].amountNew) > 0){
+            if(prevCurrAmountNew === 0 || prevCurrAmountNew > (+obj.entityData.amountNew)){
+              this.stateObj[objEntities[i]][obj.entityType][obj.rowIndex].amount = (+this.stateObj[objEntities[i]][obj.entityType][obj.rowIndex].amount) + ((+prevCurrAmountNew) - (+obj.entityData.amountNew));
+            }else if(prevCurrAmountNew < (+obj.entityData.amountNew)){
+              this.stateObj[objEntities[i]][obj.entityType][obj.rowIndex].amount = (+this.stateObj[objEntities[i]][obj.entityType][obj.rowIndex].amount) + (+obj.entityData.amountNew);
+            }
+          }else{
+            this.stateObj[objEntities[i]][obj.entityType][obj.rowIndex].amount = maxAmount - selectedAmounts;
+          }
+          
+        }        
+
+        console.log("objEntities[i]: ",  objEntities[i]); //distribProducts1
+        console.log("obj.entityType: ",  obj.entityType); //sims
+        console.log("obj rowIndex: ",  obj.rowIndex); // 0
+
+      }
     }
 
-    // console.log("BBB stateObj: ", this.stateObj);
-    // console.log("keys: ", Object.keys(this.stateObj));
-    // const updObj = {parentCtrl: obj.parentCtrl, stateObj: this.stateObj};
+    console.log("STATE STORE stateObj: ", this.stateObj);
     this.formStateSubject.next(this.stateObj);
+  }
+
+  getSum(obj: any): number {
+    const sum:number = obj.reduce((val: number, object:any) => {
+      return val + (+object.amountNew);
+    }, 0);
+    return 0;
   }
 
   getStateObj(){

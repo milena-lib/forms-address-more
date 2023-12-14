@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { StateStoreService } from '../../store/state-store.service';
+import { identifierName } from '@angular/compiler';
 
 @Component({
   selector: 'app-entity',
@@ -67,33 +68,60 @@ export class EntityComponent implements OnInit, ControlValueAccessor {
       // console.log('CHANGED', entityValue);
       if (this.callBack) {
         this.callBack(entityValue);
-      }
+      }      
+
+      // const entityData = { parentCtrl: this.parentCtrlName, entityData: entityValue };
+      // this.stateStore.setStateForm(entityData);
     });
 
-    this.stateStore.formState$.subscribe((event: any) => {
-      if(event) {
-        // console.log("EVENT: ", event);
+    // this.stateStore.formState$.subscribe((event: any) => {
+    //   if(event) {
+    //     // console.log("EVENT: ", event);
         
-        if(this.parentCtrlName !== 'mainProducts'){
-          this.simsMaxAmount = event.mainProducts.sims; 
-          this.devicesMaxAmount = event.mainProducts.devices;  
-          this.accessoriesMaxAmount = event.mainProducts.accessories;
-
-          for (let i = 0; i < this.entityGroup.controls.entityFormArray.controls.length; i++) {
-            if(this.entityType === 'sims') {
-              this.entityGroup.controls.entityFormArray.controls[i].controls['amount'].setValue(event.mainProducts.sims[i]);
-            }else if(this.entityType === 'devices') {
-              this.entityGroup.controls.entityFormArray.controls[i].controls['amount'].setValue(event.mainProducts.devices[i]);
-            }else if(this.entityType === 'accessories'){
-              this.entityGroup.controls.entityFormArray.controls[i].controls['amount'].setValue(event.mainProducts.accessories[i]);
-            }            
-          }
-        } 
-      }
-    })
+    //     if(this.parentCtrlName !== 'mainProducts'){
+    //       this.simsMaxAmount = event.mainProducts.sims; 
+    //       this.devicesMaxAmount = event.mainProducts.devices;  
+    //       this.accessoriesMaxAmount = event.mainProducts.accessories;         
+    //     }
+    //     // debugger;
+    //     for (let i = 0; i < this.entityGroup.controls.entityFormArray.controls.length; i++) {
+    //       if(this.entityType === 'sims') {
+    //         this.entityGroup.controls.entityFormArray.controls[i].controls['amount'].setValue(event.mainProducts.sims[i].amount);
+    //       }else if(this.entityType === 'devices') {
+    //         this.entityGroup.controls.entityFormArray.controls[i].controls['amount'].setValue(event.mainProducts.devices[i].amount);
+    //       }else if(this.entityType === 'accessories'){
+    //         this.entityGroup.controls.entityFormArray.controls[i].controls['amount'].setValue(event.mainProducts.accessories[i].amount);
+    //       }            
+    //     }
+        
+    //     // this.onChange();
+    //   }
+    // });
   }
 
-  onBlurAmountMain($event: any) {
-    // console.log("onBlurAmountMain: ", $event);
+  onBlurAmount($event: any, index: number) {
+    setTimeout(function(){
+      console.log("document.activeElement id", document.activeElement?.id); // This is the element that has focus
+      console.log("document.activeElement tagName", document.activeElement?.tagName);
+   },1);
+    const entityData = { 
+      parentCtrl: this.parentCtrlName, 
+      entityType: this.entityType, 
+      rowIndex: index, 
+      entityData: { 
+        amount: this.entityGroup.controls.entityFormArray.controls[index].controls['amount'].value,
+        amountNew: this.entityGroup.controls.entityFormArray.controls[index].controls['amountNew'].value
+      }  
+    };
+    console.log("entityData: ", entityData);
+    
+    // debugger;
+    this.stateStore.setStateForm(entityData);
   }
+
+  // private onChange() {
+  //   if (this.callBack) {
+  //     this.callBack(this.entityGroup);
+  //   }
+  // }
 }
